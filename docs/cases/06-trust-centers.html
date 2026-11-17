@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · What 101 AI trust centers answer — and the two questions they almost never do — Exhibitrail</title>
+<meta name="description" content="Target: 106 trust / compliance pages published by companies in our addressable set
+Readable: 101 of 106 (5 were gated or unreachable)
+Published: 2026-11-17 · Commissioned? No
+Resul">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case 06 · trust centres</div>
+<h1>06 · What 101 AI trust centers answer — and the two questions they almost never do</h1>
+<p><strong>Target:</strong> 106 trust / compliance pages published by companies in our addressable set
+<strong>Readable:</strong> 101 of 106 (5 were gated or unreachable)
+<strong>Published:</strong> 2026-11-17 · <strong>Commissioned?</strong> No
+<strong>Result:</strong> compliance questions are answered at 44–76%. The two questions that decide an <em>agent</em>
+review are answered at <strong>5% and 7%</strong>.</p>
+<hr />
+<h2>Why this exists</h2>
+<p>A trust center is a company answering, in public, the questions its buyers asked. That makes it a
+better dataset than a survey: nobody wrote these pages to be measured, and each page exists because
+a real security review demanded it.</p>
+<p>If you are buying an AI agent, the question is not "do they have a trust center" — most do. It is
+"does the trust center answer the thing I am actually afraid of".</p>
+<h2>Method, stated so it can be argued with</h2>
+<p>For each company we took the first trust/compliance URL we could find (paths <code>/trust</code>, <code>/security</code>,
+<code>/compliance</code>, or a <code>trust.</code> subdomain) and fetched the page. We then asked one question per topic:
+<strong>does this string appear anywhere on the page.</strong> Lowercase, no context, no reading.</p>
+<p>That is crude on purpose. It cannot tell whether a mention is an answer or a disclaimer. It can only
+tell you what a page does and does not bring up at all — and at this scale the pattern is the point.</p>
+<pre><code class="language-sh">python3 accounts/trust_center_audit.py   # reproducibility is the argument
+</code></pre>
+<h2>What the 101 pages cover</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Pages mentioning it</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SOC 2 / ISO 27001</td>
+<td>77</td>
+<td>76%</td>
+</tr>
+<tr>
+<td>Data retention / deletion</td>
+<td>70</td>
+<td>69%</td>
+</tr>
+<tr>
+<td>Training on customer data</td>
+<td>55</td>
+<td>54%</td>
+</tr>
+<tr>
+<td>Penetration test</td>
+<td>49</td>
+<td>49%</td>
+</tr>
+<tr>
+<td>Subprocessor list</td>
+<td>44</td>
+<td>44%</td>
+</tr>
+<tr>
+<td>Model / AI provider named</td>
+<td>25</td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>Prompt injection</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5%</strong></td>
+</tr>
+<tr>
+<td><strong>Agent tool authority</strong></td>
+<td><strong>7</strong></td>
+<td><strong>7%</strong></td>
+</tr>
+</tbody>
+</table>
+<h2>The shape of the gap</h2>
+<p>The top five topics are the vocabulary of a <em>compliance</em> review: certificates, retention, training,
+pentests, vendors. A company that has been through one enterprise deal learns this list, and can
+answer it.</p>
+<p>The bottom two are the vocabulary of an <em>agent</em> review: can content the agent reads become an
+instruction it obeys, and what can it change without a human gate. These are not certificate
+questions. No auditor asks them, so no trust center answers them — 5% and 7% is not negligence,
+it is the shape of the questionnaires the market currently sends.</p>
+<p>Which produces a specific and slightly uncomfortable conclusion: <strong>the documents buyers rely on
+are silent on exactly the two properties that make an agent different from a web app.</strong></p>
+<h2>What a buyer should do with this</h2>
+<p>Ask two questions the trust center does not answer, and accept "we will check" as an answer:</p>
+<ol>
+<li>If a page the agent retrieves contains instructions, what makes it data rather than a command —
+   and where is that enforced: template, prompt, or permission?</li>
+<li>What can the agent change without a human approving it, and is that list written down anywhere a
+   customer can read?</li>
+</ol>
+<p>A vendor that answers these two has done work that no certificate covers. A vendor that has not
+thought about them will say something about guardrails.</p>
+<h2>What a vendor should do with this</h2>
+<p>Not "add a page". A page that says "we mitigate prompt injection" is the least useful possible
+response — it is an adjective. The useful artefact is smaller and harder: one page per agent
+surface, stating what the boundary is, where it is implemented, and what test would show it holds.</p>
+<p>That artefact is what our 24 tests ask for, and it is why the tests are public.</p>
+<h2>Limits</h2>
+<ul>
+<li>Keyword presence is not comprehension: 5% may undercount pages that address the risk in other
+  words ("untrusted content", "instruction hierarchy"). We did not search synonyms, and say so.</li>
+<li>The set is our addressable list, not the market. It skews toward AI-native companies that have
+  been through at least one enterprise deal.</li>
+<li>Five pages were unreachable and are excluded from the denominator.</li>
+<li>A page that mentions a topic may do so in a way that fails the test. This counts vocabulary, not
+  quality.</li>
+</ul>
+<p><em>Written by Exhibitrail. Five other assessments, the 24 tests and the pipeline are in this
+repository. Evidence, not adjectives.</em></p>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

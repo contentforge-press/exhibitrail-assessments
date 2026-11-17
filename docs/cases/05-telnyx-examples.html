@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 · Telnyx code examples — how many samples verify a webhook before trusting it — Exhibitrail</title>
+<meta name="description" content="Target: team-telnyx/telnyx-code-examples (public)
+Surface: 293 directories containing Python
+Published: 2026-11-17 · Commissioned? No
+Result: 181 samples (62%) check a signature be">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case 05 · webhook samples</div>
+<h1>05 · Telnyx code examples — how many samples verify a webhook before trusting it</h1>
+<p><strong>Target:</strong> <code>team-telnyx/telnyx-code-examples</code> (public)
+<strong>Surface:</strong> 293 directories containing Python
+<strong>Published:</strong> 2026-11-17 · <strong>Commissioned?</strong> No
+<strong>Result:</strong> 181 samples (62%) check a signature before trusting an event; 112 do not.
+<strong>Verdict:</strong> the samples are better than most public sample repos. The gap is not in the samples —
+it is in what the samples cannot show: the outbound direction.</p>
+<hr />
+<h2>Why this one is different from 01–04</h2>
+<p>Cases 01–04 are source reviews: I read one system's trust boundaries and wrote down what a buyer
+would ask. This case is a <strong>coverage count</strong>. It answers one question — do the code examples that
+ship with a public platform verify events before acting — and it answers it with a number you can
+reproduce in a minute.</p>
+<p>It is published for two reasons. First, it is a useful question for anyone building on this
+platform: the samples are what gets copied into production. Second, it is the smallest honest
+demonstration of the difference between reading code and believing documentation.</p>
+<h2>Method</h2>
+<pre><code class="language-sh">git clone --depth 1 https://github.com/team-telnyx/telnyx-code-examples
+# for each directory containing .py: does the code call a signature check before acting?
+grep -rl &quot;unwrap(&quot; --include=*.py .
+</code></pre>
+<p>A sample counts as verifying if it calls the SDK's unwrap/verify path, checks an Ed25519 signature,
+or otherwise validates the event before reading the payload. Filenames and README claims are
+ignored; only code counts.</p>
+<h2>What the numbers are</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Samples</th>
+<th>Verifying</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI / voice / SMS product samples</td>
+<td>155</td>
+<td>104</td>
+<td>67%</td>
+</tr>
+<tr>
+<td>Other (account, messaging, misc.)</td>
+<td>106</td>
+<td>62</td>
+<td>58%</td>
+</tr>
+<tr>
+<td>Number / SIM provisioning</td>
+<td>25</td>
+<td>11</td>
+<td>44%</td>
+</tr>
+<tr>
+<td>Demo, game, tutorial</td>
+<td>7</td>
+<td>4</td>
+<td>57%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>293</strong></td>
+<td><strong>181</strong></td>
+<td><strong>62%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>For comparison: in most SDK sample repositories the equivalent number is close to zero, because
+sample code is written to show the happy path. 62% is not a marketing number — it is a
+maintenance number, and it says someone on the team treats samples as documentation that will be
+copied.</p>
+<h2>What this count cannot tell you</h2>
+<ul>
+<li><strong>It cannot tell you whether the deployed platform verifies events.</strong> It counts samples.</li>
+<li><strong>It cannot tell you whether verification is enforced or optional in production.</strong> A sample that
+  calls <code>unwrap()</code> proves the SDK <em>can</em>; it does not prove the service <em>requires</em>.</li>
+<li><strong>It cannot tell you anything about the outbound direction.</strong> This is the part that matters and
+  the reason this file exists at all, below.</li>
+</ul>
+<h2>The direction the samples do not cover</h2>
+<p>Every one of these samples verifies <strong>inbound</strong>: it receives an event and decides whether to trust
+it. None of them addresses the <strong>outbound</strong> hop, which is where an AI assistant becomes an
+initiator rather than a responder.</p>
+<p>An assistant's webhook tool takes a URL from the tenant. So the flow is:</p>
+<pre><code>inbound event ──► verified ◄── the samples stop here
+                       │
+                       └──► tool call ──► HTTP request to a URL the tenant chose
+                                              (made with the platform's account, not the tenant's)
+</code></pre>
+<p>Three questions follow, and none of them can be answered by reading samples:</p>
+<ol>
+<li><strong>Is the outbound URL constrained?</strong> An allowlist is a different product from a free-form field.</li>
+<li><strong>Does the tool's response carry provenance into the model context?</strong> A JSON body returned
+   mid-call is text arriving from outside the system; whether the model can tell it apart from
+   its own instructions determines whether that path is an instruction channel.</li>
+<li><strong>What is the retention path for transcripts and gathered input?</strong> The samples contain no
+   <code>delete</code> call, so the question is not whether data is stored but where it stops being.</li>
+</ol>
+<p>These are the questions I would ask before putting an assistant in front of a customer. They are
+also the questions a buyer's security review asks, in roughly that order.</p>
+<h2>What this file is not</h2>
+<p>Not a claim that Telnyx has a vulnerability. Not a statement on behalf of Telnyx. Not a rating.
+It is a count, a method, and three questions the count cannot answer.</p>
+<p><em>Written by Exhibitrail. Four other assessments and the 24 tests are in this repository;
+<code>tools/</code> reproduces the scanning pipeline. Evidence, not adjectives.</em></p>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

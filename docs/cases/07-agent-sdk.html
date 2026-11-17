@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 · openai/openai-agents-python — a clean result, and three seams — Exhibitrail</title>
+<meta name="description" content="Target openai/openai-agents-python at commit 9e05bd5bf299a5ddbb25f7fec8da10bf2baf6133 (2026-11-17).
+Scope src/ only: 317 Python files, 134,657 lines.
+Method Bandit 1.9.4 (JSON, def">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case 07 · agent SDK</div>
+<h1>07 · openai/openai-agents-python — a clean result, and three seams</h1>
+<p><strong>Target</strong> <code>openai/openai-agents-python</code> at commit <code>9e05bd5bf299a5ddbb25f7fec8da10bf2baf6133</code> (2026-11-17).
+<strong>Scope</strong> <code>src/</code> only: 317 Python files, 134,657 lines.
+<strong>Method</strong> Bandit 1.9.4 (JSON, default rules) + a read of the tool-call lifecycle. No dynamic execution, no fuzzing,
+no payloads. Nothing was sent to the maintainers before publication; this is not a disclosure channel.</p>
+<hr />
+<h2>What the scan produced</h2>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Count</th>
+<th>Triage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HIGH</td>
+<td>1</td>
+<td><strong>not exploitable</strong> — SHA-1 used to shorten MCP tool names (<code>src/agents/mcp/util.py:439</code>), a collision-resistance-free namespace suffix, not a security primitive</td>
+</tr>
+<tr>
+<td>MEDIUM</td>
+<td>74</td>
+<td>mostly <code>B608</code> hardcoded SQL strings in test fixtures (40) and <code>B604</code> function calls with <code>shell=True</code> in example helpers (18); read individually, none on a path a model can reach</td>
+</tr>
+<tr>
+<td>LOW</td>
+<td>235</td>
+<td><code>assert</code>-based narrowing and <code>try/except/pass</code> — noise, kept in the count so the ratio is honest</td>
+</tr>
+</tbody>
+</table>
+<p><strong>310 hits, 0 real.</strong> That is the result this time. Publishing it matters because a practice that only ever
+finds something is a practice you cannot use to decide anything: if every review ends in "critical", the word
+stops meaning anything.</p>
+<hr />
+<h2>Three seams worth a buyer's attention</h2>
+<h3>O-1 · Tool output arrives without provenance</h3>
+<p><code>ToolCallOutputItem</code> carries <code>raw_item</code> (a string form of the output) and <code>output</code> (whatever the tool returned).
+When the tool result re-enters the model's context it is a plain <code>function_call_output</code> — the same shape as any
+other text the model is asked to read. There is no marker saying <em>this text came from a tool that read a
+document a stranger wrote</em>.</p>
+<p>Consequence, stated plainly: an SDK built on this cannot, by itself, tell the model which parts of its context are
+data and which are instructions. Anything that watches for injected instructions has to be added by the
+application, above the SDK. This is a design note, not a bug — but it is the row most trust centres omit, and the
+row our 101-vendor count found on 7% of pages.</p>
+<h3>O-2 · Approvals are per call, with a legacy path that rebuilds missing bindings</h3>
+<p><code>needs_approval</code> can be a bool or a function of <code>(run_context, action, call_id)</code>, and approval is keyed to the
+call id. When a run is serialized and resumed, <code>RunContextWrapper</code> can reconstruct an approval binding that was
+not persisted — gated by <code>_allow_legacy_approval_binding_reconstruction</code>
+(<code>src/agents/run_context.py:201</code>, used at <code>agent.py:855</code>).</p>
+<p>We are <strong>not</strong> claiming that an approval for call A can authorize call B. We are saying the fallback exists,
+that it is opt-in, and that proving either way needs a run we did not perform. Marked <strong>Untriaged</strong> on purpose:
+"we could not rule it out without executing" is a different sentence from "it is safe".</p>
+<h3>O-3 · A hosted shell tool refuses to be approval-gated</h3>
+<p><code>ShellTool.__post_init__</code> raises <code>UserError</code> when <code>environment</code> is hosted and <code>needs_approval</code> is not False
+(<code>src/agents/tool.py:1533-1541</code>). The error is explicit, which is the right choice — a silent downgrade would be
+worse. But it means the answer to "can shell commands require human approval?" is <strong>yes in local mode, no in
+hosted mode</strong>, and a buyer who reads only the docstring for <code>needs_approval</code> will answer that question wrongly.</p>
+<hr />
+<h2>What this review cannot support</h2>
+<ul>
+<li><strong>No dynamic testing.</strong> Approval bypasses, sandbox escapes and MCP server trust were not exercised.</li>
+<li><strong><code>src/</code> only.</strong> Tests, examples and docs were counted, not read.</li>
+<li><strong>Bandit is not a taint tracker.</strong> It sees calls, not flows; the SQL and <code>shell=True</code> hits are noise because
+  nothing model-controlled reaches them, and we assert that from reading, not from a tool.</li>
+<li><strong>One commit.</strong> The judgement holds for <code>9e05bd5</code> and not for the project.</li>
+<li><strong>No disclosure.</strong> Nothing was reported privately first; nothing here is a vulnerability report.</li>
+</ul>
+<hr />
+<h2>Why publish a clean one</h2>
+<p>A buyer choosing between two vendors gets no information from two reviews that both say "critical". A practice
+that prints the same verdict on a well-kept codebase as on a neglected one is a pricing exercise, not a
+measurement. This is the case where the measurement came back quiet — recorded so the next loud one can be
+believed.</p>
+<p>Reproduce: <code>git clone --depth 1 https://github.com/openai/openai-agents-python &amp;&amp; bandit -r src -f json</code>.</p>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

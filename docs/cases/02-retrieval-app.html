@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case 2 — a retrieval app, two Highs — Exhibitrail</title>
+<meta name="description" content="Target: langchain-ai/chat-langchain · 24 files · 3,455 lines.
+Method: Bandit + Semgrep + pip-audit + a manual read of the retrieval and tool paths.">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case 02 · retrieval app</div>
+<h1>Case 2 — a retrieval app, two Highs</h1>
+<p><strong>Target:</strong> <code>langchain-ai/chat-langchain</code> · 24 files · 3,455 lines.
+<strong>Method:</strong> Bandit + Semgrep + <code>pip-audit</code> + a manual read of the retrieval and tool paths.</p>
+<h2>Result</h2>
+<p>11 findings — 2 High, 5 Medium, 2 Low, 2 Informational. Composite <strong>62/100 (C)</strong>.</p>
+<h3>H-1 — no trust boundary between tool output and instructions</h3>
+<p>Content returned by the retrieval tool is concatenated into the prompt with no delimiter, no
+provenance, and no instruction to treat it as data. A document in the index can therefore address
+the model directly. This is the textbook indirect-injection shape, and it is the finding most likely
+to be exploitable in production because the corpus is often user-supplied.</p>
+<h3>H-2 — a guardrail classifier fails open</h3>
+<p>The guardrails check returns "allowed" when the classifier itself errors. A dependency outage or a
+timeout therefore disables the control instead of denying the request. Fail-open is a policy
+decision that should be made explicitly and written down; here it is an implicit default.</p>
+<h3>Positive</h3>
+<p>Outbound fetches validate the resolved address hop by hop, which is real SSRF work rather than a
+regex on the URL string.</p>
+<h3>Withdrawn</h3>
+<p>Semgrep flagged <code>prompt_provenance.py:91</code> as a credential leak. It is not: the value is a hash of
+public content used for cache keys. Reported, verified, withdrawn.</p>
+<h2>Limits</h2>
+<p>Source review of public code. No exploit payload is reproduced here.</p>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

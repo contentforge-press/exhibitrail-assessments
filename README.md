@@ -4,6 +4,10 @@
 agent can do without approval, deadline. Written scope back in 24 hours, no call at any stage:
 `4mg8p8hp0ddk3.doubao.link/app/app_17j74pwsvp1`
 
+**Are you the buyer?** [Twenty questions to send a supplier]
+(`4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5`) — the weak answer, the answer that survives a
+follow-up, and the artefact to ask for. Copy the five that matter; no account needed.
+
 Four source reviews, one coverage count, and one survey of 101 trust centers. Six assessments in
 total — each reproducible, uncommissioned, and written so a security reviewer can check the claim
 rather than trust the prose. No payloads are published; no client data appears anywhere.
@@ -34,7 +38,8 @@ so and gives the reason — that is the part reviewers actually use.
 
 ## Reading guides
 
-- [What to ask an AI vendor, and what counts as an answer](guides/what-to-ask-an-ai-vendor.md) —
+- [What to ask an AI vendor, and what counts as an answer](guides/what-to-ask-an-ai-vendor.md)
+  ([one-page version, built to forward](4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5)) —
   20 questions for the buyer's side of the table: weak answer, the answer that survives a
   follow-up, and the artefact to demand.
 - [How to read a source review](guides/how-to-read-a-source-review.md) — what Untriaged and

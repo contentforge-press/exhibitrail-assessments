@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seven reviews, one pattern — Exhibitrail</title>
+<meta name="description" content="What seven source reviews of public AI code and a census of 101 trust centres actually show: the gap is in evidence, not in the code.">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(28px,4.6vw,40px);line-height:1.1;letter-spacing:-.02em;margin:24px 0 12px;font-weight:600}
+h1 em{font-style:normal;color:var(--seal)}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:38px 0 8px;border-top:1px solid var(--rule);padding-top:16px}
+h3{font-size:17.5px;margin:26px 0 4px}
+p{margin:0 0 16px;max-width:68ch}
+.lede{font-size:18.5px;line-height:1.52;color:#2c3330;max-width:62ch}
+table{width:100%;border-collapse:collapse;margin:12px 0 22px;font-size:14.5px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 10px 6px 0;border-bottom:1px solid var(--ink)}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.r{font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{border-left:3px solid var(--seal);margin:0 0 18px;padding:2px 0 2px 14px;color:#3a2320;max-width:64ch}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+footer{margin-top:44px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+</style></head>
+<body><div class="wrap">
+
+<div class="kicker"><a href="./">Exhibitrail</a> · what seven reviews show</div>
+
+<h1>Seven reviews, one pattern: the gap is in the <em>evidence</em>, not the code.</h1>
+<p class="lede">I read seven public AI codebases and one hundred and one trust centres before writing a
+single sales line. The code is generally better than its reputation. What is missing is the thing a
+buyer needs in order to decide — a statement that survives being checked.</p>
+
+<h2>The seven, and what each one actually shows</h2>
+<table><thead><tr><th>Review</th><th>Surface</th><th>What it shows</th></tr></thead><tbody>
+<tr><td>livekit/agents</td><td class="r">86,760 lines</td><td>174 scanner hits reduced to <b>one</b> real issue. The rest were patterns: test asserts, sample keys, shell strings.</td></tr>
+<tr><td>chat-langchain</td><td class="r">3,455 lines</td><td>Eleven items, two High, 62/100 by the practice's own sheet — a small app carrying decisions that a big one usually gets wrong.</td></tr>
+<tr><td>litellm</td><td class="r">28,903 lines</td><td>One decision implemented <b>twice</b>, and the two paths disagree. Not a bug in either path — a bug in the shape.</td></tr>
+<tr><td>langgraph</td><td class="r">29,082 lines</td><td>Persistence delegates tenant separation to the application, entirely. A design observation, not a defect.</td></tr>
+<tr><td>telnyx examples</td><td class="r">293 samples</td><td><b>181 of 293</b> verify a webhook signature — <b>62%</b>. Samples teach the pattern that ends up in production.</td></tr>
+<tr><td>101 trust centres</td><td>106 domains scanned</td><td>Compliance is answered broadly; <b>behaviour</b> almost never.</td></tr>
+<tr><td>openai-agents-python</td><td class="r">134,657 lines</td><td>310 hits reduced to <b>zero</b>. One HIGH was a SHA1 used to hash a tool name — a false positive, named as one.</td></tr>
+</tbody></table>
+
+<h2>1 · The scanner number is not the finding</h2>
+<p>Two of the reviews put <b>174</b> and <b>310</b> scanner items on the table. The issues that survived
+reading were <b>one</b> and <b>zero</b>. A true-positive rate near one percent is not a flaw in the tools;
+it is what tools do when they cannot see intent.</p>
+<blockquote>If a review reports “12 High” on its first page, the review has not happened yet. The
+number describes the tool, not the system.</blockquote>
+<p>This is why every candidate in these reviews starts as <b>Untriaged</b>, and why a withdrawn item stays
+in the file with its reason. A practice that only publishes what it kept cannot be checked — and
+cannot be wrong, which is a different thing from being right.</p>
+
+<h2>2 · Where the real items cluster</h2>
+<p>Not memory safety. Not injection strings. The items that survived were about <b>boundary</b> and
+<b>authority</b>:</p>
+<p>Content the agent reads arriving in the same string as the instruction it should follow — no
+separator, no provenance, no type. A single tool holding a broad credential, protected by a sentence
+in the prompt. A tenant key the end user can type. A gate that holds on one path and not on the
+second.</p>
+<p>These are not exotic. They are the ordinary shape of a system built quickly, and they are exactly
+what a security questionnaire is trying to ask about — except the questionnaire asks “do you protect
+against prompt injection?” and the honest answer is “we have a sentence in the prompt”.</p>
+
+<h2>3 · Trust centres answer the easy half</h2>
+<p>Out of 106 domains, 101 had a readable trust page. Eight themes appear across them:</p>
+<table><thead><tr><th>Theme</th><th>Share of readable trust pages</th></tr></thead><tbody>
+<tr><td>SOC 2 / ISO 27001 mentioned</td><td class="r">76%</td></tr>
+<tr><td>Retention policy stated</td><td class="r">69%</td></tr>
+<tr><td>Training on customer data stated</td><td class="r">54%</td></tr>
+<tr><td>Penetration testing mentioned</td><td class="r">49%</td></tr>
+<tr><td>Sub-processors listed</td><td class="r">44%</td></tr>
+<tr><td>Model providers named</td><td class="r">25%</td></tr>
+<tr><td><b>Prompt injection addressed</b></td><td class="r"><b>5%</b></td></tr>
+<tr><td><b>Agent tool authority addressed</b></td><td class="r"><b>7%</b></td></tr>
+</tbody></table>
+<p>The pattern is not dishonesty; it is that compliance frameworks have names, and agent behaviour
+does not. A vendor can answer “are you SOC 2?” in one sentence. Nobody has taught them to answer
+“what can your agent change without a human approving it?” — so the page is silent, and the buyer
+reads silence as safety.</p>
+<p>The two questions at 5% and 7% are the two an agent product cannot be sold into a serious
+enterprise without. That is the whole commercial argument for this practice, and it is a census,
+not an opinion.</p>
+
+<h2>4 · Samples are the cheapest place to fix it</h2>
+<p>62% webhook verification in an SDK's examples is not a vulnerability report. It is a forecast.
+Every one of those samples is copied into somebody's production service by somebody who had fifteen
+minutes. The fix costs a line of code and belongs in the sample, not in a security review three
+years later.</p>
+
+<h2>5 · What a buyer should do with this</h2>
+<p>Ask for the artefact, not the assurance. If the answer is a paragraph, you have learned the vendor
+has a template. If the answer is a list — of write actions, of gates, of stores with retention
+numbers and owners — you have something that can be checked next quarter, when the model has changed
+and the prompt has been edited in a console.</p>
+<p>And when the answer is “none”, write it down and price it in. That is not a reason to walk away
+from a good product. It is a reason to know what you are buying.</p>
+
+<h2>6 · What this practice does not claim</h2>
+<p>Seven reviews are seven reviews. They are source reviews of public code: no running system was
+touched, no maintainer was asked, no score is comparable across them. Counts are counts. Where a
+review found nothing, it says so and shows the false positive it rejected — because a practice that
+finds something every time is not measuring, it is performing.</p>
+<p>The list of what a review covers is on the <a href="method.html">method page</a>. The files are in
+<a href="cases/">the cases</a>. If you want the twenty questions a buyer should send instead, they are
+<a href="buyer-questions.html">here</a>.</p>
+
+<footer>Written from the seven published files and the trust-centre census. No warranty, no
+attestation. · <a href="./">Home</a> · <a href="cases/">Cases</a> · <a href="method.html">Method</a></footer>
+</div></body></html>

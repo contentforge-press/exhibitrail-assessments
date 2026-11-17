@@ -4,8 +4,8 @@
 agent can do without approval, deadline. Written scope back in 24 hours, no call at any stage:
 `4mg8p8hp0ddk3.doubao.link/app/app_17j74pwsvp1`
 
-Four source reviews, one coverage count, and one survey of 101 trust centers — six assessments in
-**total. Each is reproducible, uncommissioned, and written so a security reviewer can check the claim
+Four source reviews, one coverage count, and one survey of 101 trust centers. Six assessments in
+total — each reproducible, uncommissioned, and written so a security reviewer can check the claim
 rather than trust the prose. No payloads are published; no client data appears anywhere.
 
 **What these are.** An agent is not a web app with a model bolted on. It takes actions, keeps

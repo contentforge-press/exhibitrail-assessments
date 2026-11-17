@@ -14,6 +14,22 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 
 ---
 
+## [The 24 tests](tests/24-tests.md), published in full
+
+Six classes, four tests each, with the evidence that passes each one. It is the scope we work to —
+published so you can read the questions before you decide anything.
+
+## The six classes we test
+
+1. **Instruction boundary** — can content the agent reads become an instruction it obeys?
+2. **Action authority** — what can it change without a human gate?
+3. **Memory isolation** — whose conversation can it read, and by whose name?
+4. **Retention** — what is still stored after the session ends, and who can delete it?
+5. **Sub-processor chain** — which third parties see the data, and is that disclosed?
+6. **Version lock** — what pins the model and the prompt so a verdict stays true next month?
+
+---
+
 ## The four files
 
 | # | Target | Surface | Result |
@@ -25,17 +41,6 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 
 Every file states its own limits. Where something looked like a finding and was not, the file says
 so and gives the reason — that is the part reviewers actually use.
-
----
-
-## The six classes we test
-
-1. **Instruction boundary** — can content the agent reads become an instruction it obeys?
-2. **Action authority** — what can it change without a human gate?
-3. **Memory isolation** — whose conversation can it read, and by whose name?
-4. **Retention** — what is still stored after the session ends, and who can delete it?
-5. **Sub-processor chain** — which third parties see the data, and is that disclosed?
-6. **Version lock** — what pins the model and the prompt so a verdict stays true next month?
 
 ---
 

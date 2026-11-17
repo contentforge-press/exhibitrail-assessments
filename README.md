@@ -19,6 +19,12 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 Six classes, four tests each, with the evidence that passes each one. It is the scope we work to —
 published so you can read the questions before you decide anything.
 
+## [Answering the AI security questionnaire](guides/answering-the-ai-security-questionnaire.md)
+
+The ten questions that appear in almost every enterprise review, with the answer that survives a
+follow-up and the artefact to attach — including the ones where the honest answer is "we have not
+implemented this".
+
 ## The six classes we test
 
 1. **Instruction boundary** — can content the agent reads become an instruction it obeys?

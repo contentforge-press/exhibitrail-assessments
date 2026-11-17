@@ -1,7 +1,11 @@
 # AI security assessments, published in full
 
-Four source reviews of public repositories, plus one coverage count — five assessments in total.
-Each is reproducible, uncommissioned, and written so a security reviewer can check the claim
+**Want a review?** Three facts on the intake page build the email for you — repository, what the
+agent can do without approval, deadline. Written scope back in 24 hours, no call at any stage:
+`4mg8p8hp0ddk3.doubao.link/app/app_17j74pwsvp1`
+
+Four source reviews, one coverage count, and one survey of 101 trust centers — six assessments in
+**total. Each is reproducible, uncommissioned, and written so a security reviewer can check the claim
 rather than trust the prose. No payloads are published; no client data appears anywhere.
 
 **What these are.** An agent is not a web app with a model bolted on. It takes actions, keeps
@@ -14,7 +18,7 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 
 ---
 
-## The five files
+## The six files
 
 | # | Target | Surface | Result |
 |---|---|---|---|
@@ -23,6 +27,7 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 | [3](cases/03-llm-gateway.md) | litellm · 28,903 lines (proxy auth) | LLM gateway | one decision made on **two paths**, one hardened |
 | [4](cases/04-agent-memory.md) | langgraph · 29,082 lines (core + savers) | persistence | **design observation**, severity depends on the app |
 | [5](cases/05-telnyx-examples.md) | team-telnyx/telnyx-code-examples · 293 Python samples | sample coverage | **181 of 293 verify a webhook** (62%) — and the direction they do not cover |
+| [6](cases/06-trust-centers.md) | 101 published AI trust centers | what buyers are shown | compliance answered at 44–76%; **prompt injection 5%, tool authority 7%** |
 
 Every file states its own limits. Where something looked like a finding and was not, the file says
 so and gives the reason — that is the part reviewers actually use.

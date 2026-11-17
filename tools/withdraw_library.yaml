@@ -1,0 +1,17 @@
+# The withdrawal library
+
+Saying "not a finding" is an editorial act, and doing it inconsistently is how a report loses trust:
+two reviews from the same firm that withdraw the same pattern with different wording read as two
+different firms.
+
+Each entry carries three things:
+
+- **when** — the condition under which this rule is not a finding;
+- **reason_en** — the sentence the client reads;
+- **what_would_change_it** — the condition that makes it a finding again. This field is why the
+  library is not a list of excuses.
+
+A machine may suggest one of these; it may not apply one. The `when` clauses are human judgements
+("is this string a production credential?"), and a script that reads only rule ids cannot answer that.
+`triage.py` therefore writes `status: suggested-withdraw` unless a person passes `--confirm`.
+

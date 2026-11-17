@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case 8 — AutoGen, 4,975 hits, no finding — Exhibitrail</title>
+<meta name="description" content="Target: microsoft/autogen · 546 Python files · 112,463 lines (69,016 outside tests) ·
+commit 8390985108cb1e3881f5f7297765758d8ad2540c · cloned at depth 1, no running system touched">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Case 8 — AutoGen, 4,975 hits, no finding">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case 08 · agent framework</div>
+<h1>Case 8 — AutoGen, 4,975 hits, no finding</h1>
+<p><strong>Target:</strong> <code>microsoft/autogen</code> · 546 Python files · 112,463 lines (69,016 outside tests) ·
+commit <code>8390985108cb1e3881f5f7297765758d8ad2540c</code> · cloned at depth 1, no running system touched.</p>
+<p><strong>Method:</strong> Bandit over the tree, every class of hit triaged, then a read of the paths the classes
+point at: persistence, dynamic tool construction, container setup, benchmark downloads.</p>
+<h2>Result</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scanner hits</td>
+<td><strong>4,975</strong></td>
+</tr>
+<tr>
+<td>Real findings</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Hits that are one repeated pattern</td>
+<td>4,897 (<code>assert</code> statements, B101)</td>
+</tr>
+<tr>
+<td>Remaining hits worth reading</td>
+<td>78</td>
+</tr>
+<tr>
+<td>HIGH / MEDIUM reported by the scanner</td>
+<td>5 / 13</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A number this large is the argument for triage, not against the code.</strong> 98.4% of the output is a
+single test idiom. Of the 78 remaining hits, the ones that matter are design properties, and one is a
+supply-chain note. Nothing here is a defect.</p>
+<h2>What the 78 remaining hits resolve to</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Count</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B101 assert</td>
+<td>4,897</td>
+<td>Test and validation idiom; one pattern, not 4,897 problems</td>
+</tr>
+<tr>
+<td>B603 / B607 / B404 subprocess</td>
+<td>36</td>
+<td>Launching local tooling with a fixed argument list; no user string reaches a shell</td>
+</tr>
+<tr>
+<td>B110 try-except-pass</td>
+<td>11</td>
+<td>Cleanup paths; no finding</td>
+</tr>
+<tr>
+<td>B311 random</td>
+<td>7</td>
+<td>Sampling, not secrets</td>
+</tr>
+<tr>
+<td>B324 MD5</td>
+<td>4</td>
+<td>Content hashing for cache keys and ids; not a security decision</td>
+</tr>
+<tr>
+<td>B104 bind 0.0.0.0</td>
+<td>4</td>
+<td>Sample servers, in <code>samples/</code></td>
+</tr>
+<tr>
+<td>B105/B106/B107 hardcoded</td>
+<td>3</td>
+<td>Test fixtures</td>
+</tr>
+<tr>
+<td>B301 pickle</td>
+<td>2</td>
+<td>See O-1</td>
+</tr>
+<tr>
+<td>B102 exec</td>
+<td>2</td>
+<td>See O-2</td>
+</tr>
+<tr>
+<td>B103 chmod 0o777</td>
+<td>1</td>
+<td>See O-3</td>
+</tr>
+<tr>
+<td>B608 SQL string</td>
+<td>2</td>
+<td><strong>False positive</strong> — the flagged lines build an import path and an error string, not a query</td>
+</tr>
+<tr>
+<td>B113 timeout</td>
+<td>1</td>
+<td>Benchmark script</td>
+</tr>
+<tr>
+<td>B615 HF revision pinning</td>
+<td>1</td>
+<td>See S-1</td>
+</tr>
+</tbody>
+</table>
+<h2>O-1 — memory is persisted as pickle, and the directory is the boundary</h2>
+<p><code>task_centric_memory/_memory_bank.py</code> restores memos with <code>pickle.load</code> from
+<code>uid_memo_dict.pkl</code>; <code>_string_similarity_map.py</code> does the same for its map.</p>
+<p>The write side is the same process, so the default deployment is consistent. The property worth
+stating: <strong>pickle turns "who can write to this directory" into "who can run code in the agent's
+process."</strong> If a memory directory is a mounted volume, a shared workspace, or a backup restored from
+elsewhere, that is an execution boundary and should be treated as one — not as a cache directory.</p>
+<p>This is a design observation, not a vulnerability: nothing in the repository accepts a remote pickle.</p>
+<h2>O-2 — a tool can be built from a Python function at runtime</h2>
+<p><code>autogen_core/tools/_function_tool.py</code> compiles a callable into source text (<code>to_code</code>) and <code>exec</code>s it
+to reconstruct the function around line 171.</p>
+<p>The input is a developer-supplied function already present in the process, so this is round-tripping,
+not injection. The property worth stating: <strong>the tool layer has a path where code is executed</strong>, and
+anything that widens what can reach <code>FunctionTool</code> — a plugin directory, a config pulled from a
+service, a marketplace — inherits code execution without needing a separate bug.</p>
+<h2>O-3 — the container executor widens a bind directory to 0o777</h2>
+<p><code>docker_jupyter/_jupyter_server.py</code> does <code>os.chmod(bind_dir, 0o777)</code> so the container user can write
+back. That is a deliberate trade for cross-container write access, and it is visible in one line.</p>
+<p>The property worth stating: <strong>a host directory becomes world-writable for the lifetime of the
+executor</strong>, and it is the same directory that carries notebook outputs back. On a single-user
+workstation this is fine. On a shared host it is the difference between "the container can write"
+and "any local user can".</p>
+<h2>S-1 — one benchmark downloads without pinning a revision</h2>
+<p><code>agbench/benchmarks/GAIA/Scripts/init_tasks.py</code> calls a Hugging Face snapshot download without a
+revision. The other benchmark script (HumanEval) also calls <code>requests</code> without a timeout.</p>
+<p>Both live under <code>agbench/</code>, not in the runtime packages, and both are authoring tools for benchmark
+data. The note is about supply chain rather than runtime: <strong>a dataset fetched at "latest" is a
+dependency that can change under a fixed commit</strong>, and a re-run is no longer reproducible. Pinning a
+revision costs one argument.</p>
+<h2>Positive</h2>
+<ul>
+<li><code>FunctionTool</code> input is a function object, not a string from the wire.</li>
+<li>The Docker executor is opt-in and named as such in the package layout (<code>autogen_ext/code_executors</code>).</li>
+<li>Studio validation returns typed <code>ValidationError</code> objects rather than swallowing exceptions.</li>
+<li>No SQL string construction reaches a query: the two B608 hits are import paths and messages.</li>
+</ul>
+<h2>What this does not claim</h2>
+<p>No deployed system was touched. AutoGen's runtime behaviour under adversarial input is not tested
+here; that is a different engagement with a written scope. A clean result means the source, at this
+commit, produced no item that survived triage — it does not mean the product is safe, and it does not
+mean a scanner with a different rule set would find nothing.</p>
+<h2>Re-run</h2>
+<pre><code class="language-bash">git clone --depth 1 https://github.com/microsoft/autogen
+cd autogen &amp;&amp; bandit -q -r . -f json -o /tmp/ag.json
+python3 - &lt;&lt;'PY'
+import json, collections
+r = json.load(open('/tmp/ag.json'))['results']
+print(len(r), collections.Counter(x['test_id'] for x in r).most_common(6))
+PY
+</code></pre>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

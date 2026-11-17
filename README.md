@@ -8,7 +8,7 @@ agent can do without approval, deadline. Written scope back in 24 hours, no call
 (`4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5`) — the weak answer, the answer that survives a
 follow-up, and the artefact to ask for. Copy the five that matter; no account needed.
 
-Five source reviews, one coverage count, and one survey of 101 trust centers. Seven assessments in
+Six source reviews, one coverage count, and one survey of 101 trust centers. Eight assessments in
 total — each reproducible, uncommissioned, and written so a security reviewer can check the claim
 rather than trust the prose. No payloads are published; no client data appears anywhere.
 
@@ -33,6 +33,7 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 | [5](cases/05-telnyx-examples.md) | team-telnyx/telnyx-code-examples · 293 Python samples | sample coverage | **181 of 293 verify a webhook** (62%) — and the direction they do not cover |
 | [6](cases/06-trust-centers.md) | 101 published AI trust centers | what buyers are shown | compliance answered at 44–76%; **prompt injection 5%, tool authority 7%** |
 | [7](cases/07-agent-sdk.md) | openai/openai-agents-python · 134,657 lines, 317 files | agent SDK | 310 Bandit hits → **0 real**; 1 HIGH is a false positive; 3 seams noted |
+| [8](cases/08-autogen.md) | microsoft/autogen · 112,463 lines, 546 files | agent framework | 4,975 Bandit hits → **0 real**; 4,897 are one test idiom; 3 seams + 1 supply-chain note |
 
 Every file states its own limits. Where something looked like a finding and was not, the file says
 so and gives the reason — that is the part reviewers actually use.

@@ -8,13 +8,12 @@ Why confirmation is an argument, not a prompt:
 
 Usage:
   python3 deliver.py --repo <dir> --client "Name" --outdir out/ --confirm B101,B106,B110 \\
-      [--count-from src] [--max 12] [--zh-map zh.json]
+      [--count-from src] [--max 12]
 
 Output:
   out/worklist.json      every candidate, untouched
   out/triaged.json       after confirmation (only --confirm rules are withdrawn)
-  out/report.pdf         the client-facing report
-  out/internal_zh.pdf    internal bilingual copy (only with --zh-map)
+  out/report.pdf         the client-facing report (needs a report builder in this tree)
   out/pending.txt        candidates nobody has judged yet — these are NOT findings
 """
 from __future__ import annotations
@@ -44,7 +43,6 @@ def main():
     ap.add_argument("--surface-label", default=None)
     ap.add_argument("--max", type=int, default=12)
     ap.add_argument("--scope", default=None)
-    ap.add_argument("--zh-map", default=None, help="bilingual summary map (optional)")
     a = ap.parse_args()
 
     out = Path(a.outdir)
@@ -52,7 +50,10 @@ def main():
     work = out / "worklist.json"
 
     # 1) scan
-    cmd = [sys.executable, str(HERE / "run_assessment.py"), "--repo", a.repo, "--client", a.client,
+    scanner = HERE / "run_assessment.py"
+    if not scanner.exists():
+        scanner = HERE / "run.py"
+    cmd = [sys.executable, str(scanner), "--repo", a.repo, "--client", a.client,
            "--out", str(work), "--max", str(a.max)]
     if a.count_from:
         cmd += ["--count-from", a.count_from]
@@ -69,6 +70,10 @@ def main():
     # 2) suggest withdrawals
     rc, so, se = run([sys.executable, str(HERE / "triage.py"), "apply", str(work), "--out", str(out / "suggested.json")])
     print("[2/4] suggest:", so.splitlines()[0] if so else se[:200])
+    if rc != 0 or not (out / "suggested.json").exists():
+        print("triage failed:", se[:400])
+        print("worklist.json was still written; fix the triage step and rerun.")
+        return 1
 
     # 3) confirm only the rules a person named
     d = json.load(open(out / "suggested.json", encoding="utf-8"))
@@ -85,7 +90,6 @@ def main():
             if f.get("status") != "withdrawn":
                 still.append(f)
                 f.setdefault("level", "Untriaged")
-    d["engagement"] = "Quick Scan — source review"
     d["note"] = ("Every item with level Untriaged has NOT been judged. It is printed so the reviewer can see "
                  "what remains open; it is not a finding and must not be read as one.")
     tri = out / "triaged.json"
@@ -101,16 +105,19 @@ def main():
 
     # 4) build the report
     rep = out / "report.pdf"
-    rc, so, se = run([sys.executable, str(ROOT / "report" / "build_voice_report.py"), str(tri), str(rep)])
-    print("[4/4] report:", "ok" if rc == 0 else se[:300])
-    if a.zh_map and (ROOT / "report" / "build_internal_zh.py").exists():
-        rc2, so2, se2 = run([sys.executable, str(ROOT / "report" / "build_internal_zh.py"), str(tri), a.zh_map,
-                             str(out / "internal_zh.pdf")])
-        print("      internal zh copy:", "ok" if rc2 == 0 else se2[:200])
+    builder = ROOT / "report" / "build_voice_report.py"
+    if not builder.exists():
+        print("[4/4] report: skipped — no report builder in this tree. triaged.json is the handoff point;")
+        print("      the JSON is the contract, the PDF is a rendering of it.")
+    else:
+        rc, so, se = run([sys.executable, str(builder), str(tri), str(rep)])
+        print("[4/4] report:", "ok" if rc == 0 else se[:300])
 
     print("\noutput:", out)
     for f in sorted(out.iterdir()):
         print(f"  {f.name}  {f.stat().st_size / 1024:.0f} KB")
+    if still:
+        print(f"\n{len(still)} item(s) still unjudged. They are not findings and must not be cited as ones.")
     return 0
 
 

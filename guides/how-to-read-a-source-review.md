@@ -95,8 +95,8 @@ This is the part sellers usually omit, so it is stated first here:
 - **It cannot find the failures that matter most in an agent.** An instruction that arrives
   inside retrieved content, a tool output with no provenance, a tenant key the tenant controls
   — none of these are visible to a static analyzer. They are found by reading the trust
-  boundaries and by testing the deployed path, which requires written authorisation and
-  someone to run it.
+  boundaries and by testing the deployed path, which requires written authorisation for the
+  deployed path and someone to run it.
 - **It cannot certify anything.** No attestation, no warranty, no statement on behalf of
   maintainers. It is one reviewer's reasoning, published so it can be argued with.
 
@@ -105,5 +105,5 @@ If a vendor's document claims otherwise, that claim is the finding.
 ---
 
 *Published by [Exhibitrail](https://github.com/contentforge-press/exhibitrail-assessments) —
-Evidence, not adjectives. The four public assessments, the 24 tests and the pipeline are in this
+Evidence, not adjectives. The five public assessments, the 24 tests and the pipeline are in this
 repository; they can be re-run rather than believed.*

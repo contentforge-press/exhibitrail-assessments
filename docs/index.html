@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exhibitrail — AI security assessments, published in full</title>
+<meta name="description" content="Seven source reviews of public AI agent code, a 101-vendor trust-centre census, and the twenty questions a buyer should send. Evidence, not adjectives.">
+<style>
+:root{
+  --ink:#14181b; --paper:#f7f6f2; --rule:#d5d2c8; --muted:#5c625f; --seal:#9b2c1f; --tint:#e9e7df;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:16px/1.55 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:860px;margin:0 auto;padding:0 28px 90px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:26px 0 10px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.02em;margin:26px 0 14px;font-weight:600}
+h1 em{font-style:normal;color:var(--seal)}
+.lede{font-size:18px;line-height:1.5;color:#2c3330;max-width:62ch;margin:0 0 30px}
+.rule{height:1px;background:var(--ink);margin:0 0 26px}
+section{margin:34px 0 0}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.lead{font-size:17px;margin:0 0 16px;max-width:64ch}
+.cases{width:100%;border-collapse:collapse;margin:6px 0 10px}
+.cases th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+.cases td{font-size:14.5px;padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.cases td.n{color:var(--muted);font-variant-numeric:tabular-nums;width:22px}
+.cases td.r strong{color:var(--seal);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:680px){.two{grid-template-columns:1fr}}
+.box{border:1.5px solid var(--ink);padding:16px 18px;background:var(--tint)}
+.box p{margin:0 0 8px;font-size:15px}
+.box p:last-child{margin-bottom:0}
+.small{font-size:13.5px;color:var(--muted)}
+.prices{font-size:15px;margin:8px 0 0}
+.prices b{font-variant-numeric:tabular-nums}
+footer{margin-top:46px;border-top:1px solid var(--rule);padding-top:18px;font-size:13px;color:var(--muted)}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{border-color:var(--seal);color:var(--seal)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Exhibitrail · independent assessments · est. 2026</div>
+
+  <h1>An answer only counts if something can be <em>handed over</em>.</h1>
+  <p class="lede">Seven source reviews of public AI agent code, one census of 101 vendor trust centres,
+  and the twenty questions a buyer should send. Every claim is reproducible; nothing is graded from a
+  scanner level; no payloads are published.</p>
+
+  <div class="rule"></div>
+
+  <section>
+    <h2>What has been published</h2>
+    <table class="cases">
+      <thead><tr><th>#</th><th>Target</th><th>Surface</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>livekit/agents · 86,760 lines</td><td>voice agent framework</td><td class="r">174 scanner hits → <strong>1 real</strong></td></tr>
+        <tr><td class="n">2</td><td>chat-langchain · 3,455 lines</td><td>retrieval app</td><td class="r">11 findings, <strong>2 High</strong>, 62/100</td></tr>
+        <tr><td class="n">3</td><td>litellm · 28,903 lines</td><td>LLM gateway</td><td class="r">one decision, <strong>two code paths</strong></td></tr>
+        <tr><td class="n">4</td><td>langgraph · 29,082 lines</td><td>persistence</td><td class="r">design observation</td></tr>
+        <tr><td class="n">5</td><td>telnyx examples · 293 samples</td><td>webhook coverage</td><td class="r">181 of 293 verify · <strong>62%</strong></td></tr>
+        <tr><td class="n">6</td><td>101 trust centres</td><td>what buyers are shown</td><td class="r">compliance 44–76%; <strong>injection 5%, tool authority 7%</strong></td></tr>
+        <tr><td class="n">7</td><td>openai-agents-python · 134,657 lines</td><td>agent SDK</td><td class="r">310 hits → <strong>0 real</strong>; 1 HIGH is a false positive</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Case 7 is published because a practice that finds something every time cannot help anyone decide.
+    The file states its limits — including the one row we left Untriaged rather than call safe.</p>
+  </section>
+
+  <section>
+    <h2>What a review is</h2>
+    <div class="two">
+      <div>
+        <p class="lead">Twenty-four tests in six classes — instruction boundary, action authority, memory
+        isolation, retention, sub-processor chain, version lock. Five working days from signed scope to a
+        verdict. Written scope with eight rules of engagement, signed before anything is touched.</p>
+        <p class="small">Nothing outside the written scope is tested. Public demos are never exercised.
+        A finding is published only with the reasoning that separates it from a scanner artifact.</p>
+      </div>
+      <div class="box">
+        <p><b>The two questions that cut through most of it:</b></p>
+        <p>What can your agent change without a human approving it — and where is that list?</p>
+        <p>If a page your agent reads tells it to do something, what makes that data instead of a command?</p>
+        <p class="small">A vendor who answers these precisely has done work no certificate covers.
+        A vendor who answers “guardrails” has told you where the gap is.</p>
+      </div>
+    </div>
+    <p class="prices">Quick Scan <b>$2,900</b> · Deep <b>$6,500</b> · Monthly retest <b>$2,500</b></p>
+  </section>
+
+  <section>
+    <h2>For the buyer's side of the table</h2>
+    <p class="lead">Twenty questions, three tiers each: the weak answer, the answer that survives a
+    follow-up, and the artefact to ask for by name. One page to forward, one page to fill in and send back.</p>
+    <p class="small"><a href="https://4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5">The twenty questions (one page)</a>
+    &nbsp;·&nbsp; <a href="https://4mg8p8hp0ddk3.doubao.link/app/app_17j7915k59a">Received them and have to answer? what each row wants</a></p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p class="lead">Writing only — no calls, no voice, at any stage. Send a repository, what the agent can do
+    without approval, and a deadline; written scope comes back within 24 hours.</p>
+    <p class="small">contentforge.press@outlook.com<br>
+    github.com/contentforge-press/exhibitrail-assessments</p>
+    <div class="seal">Evidence, not adjectives</div>
+  </section>
+
+  <footer>
+    Source reviews of public code, performed without access to any deployed system. No warranty, no attestation,
+    no statement on behalf of any maintainer. Counts are counts, not grades.
+  </footer>
+</div>
+</body>
+</html>

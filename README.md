@@ -31,3 +31,13 @@ Severity here reflects *what a buyer can answer in a security review*, not what 
 
 Every file states its own limits. Where something looked like a finding and was not, the file says
 so and gives the reason — that is the part reviewers actually use.
+
+## Reading guides
+
+- [What to ask an AI vendor, and what counts as an answer](guides/what-to-ask-an-ai-vendor.md) —
+  20 questions for the buyer's side of the table: weak answer, the answer that survives a
+  follow-up, and the artefact to demand.
+- [How to read a source review](guides/how-to-read-a-source-review.md) — what Untriaged and
+  withdrawn mean, and what each column cannot support.
+- [Answering the AI security questionnaire](guides/answering-the-ai-security-questionnaire.md) —
+  10 questions a vendor gets, and what a survivable answer looks like.

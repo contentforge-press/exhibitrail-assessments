@@ -44,6 +44,13 @@ so and gives the reason — that is the part reviewers actually use.
 
 ---
 
+## The pipeline behind the reports
+
+[`tools/run_assessment.py`](tools/README.md) is published too. It merges Bandit, Semgrep and pip-audit
+into a worklist and refuses to grade: every item is `Untriaged` until a human checks reachability, and
+the same rule fired in 342 files is one item, not 342. The tool cannot see the failures that matter
+most in an agent — that is the argument for the 24 tests above.
+
 ## How an engagement runs
 
 Written scope with eight rules of engagement, signed before anything is touched. Nothing outside

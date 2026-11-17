@@ -20,6 +20,13 @@ python3 tools/trust_center_survey.py --domains domains.txt --out coverage.csv
 (`/trust`, `/security`, `/compliance`, `/privacy`, plus `trust.` and `security.` subdomains)
 and keeps the first page that mentions at least two trust-center markers.
 
+## Snapshot, citation, changes
+
+- [CITATION.md](CITATION.md) — cite a commit, not the branch. Also the four rules we hold
+  ourselves to when this number is quoted.
+- [CHANGELOG.md](CHANGELOG.md) — what changed, and the four known weaknesses recorded at
+  snapshot 1 so a later version can be judged against them.
+
 ## Why publish the per-domain matrix
 
 Because a number nobody can recompute is an adjective. If you disagree with a `0`, fetch the

@@ -81,11 +81,6 @@ Weak: "Data is isolated per workspace."
 Survives: memory writes carry an owner, reads filter on it, and deletion is a first-class operation.
 Ask for: the delete path and its confirmation.
 
-**C3. What is stored of a session — full text, embeddings, both?**
-Weak: "We store what is needed."
-Survives: an explicit inventory, with retention per class.
-Ask for: the inventory table.
-
 ## D · Retention and training
 *What leaves, when, and what is kept.*
 

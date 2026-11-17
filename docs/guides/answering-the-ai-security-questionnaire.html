@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answering the AI security questionnaire — Exhibitrail</title>
+<meta name="description" content="Ten questions appear in almost every enterprise review of an AI vendor. Most vendors answer them with
+adjectives. This is what a buyer actually accepts, and what to attach.">
+<style>
+:root{--ink:#14181b;--paper:#f7f6f2;--rule:#d5d2c8;--muted:#5c625f;--seal:#9b2c1f;--tint:#e9e7df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.62 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px 80px}
+.kicker{font:600 11px/1.4 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--rule);padding:24px 0 10px}
+.kicker a{border:0;color:var(--muted)}
+h1{font-size:clamp(27px,4.4vw,38px);line-height:1.12;letter-spacing:-.02em;margin:24px 0 10px;font-weight:600}
+h2{font:600 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:34px 0 8px}
+h3{font-size:17px;margin:26px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:7px}
+table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:15px}
+th{font:600 10.5px/1.3 ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 7px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--tint);padding:1px 4px}
+pre{background:var(--tint);padding:12px 14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{color:var(--seal);border-color:var(--seal)}
+blockquote{border-left:3px solid var(--rule);margin:0 0 16px;padding:2px 0 2px 14px;color:var(--muted)}
+footer{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
+.seal{display:inline-block;border:1.5px solid var(--seal);color:var(--seal);
+  font:600 10px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 9px 6px;margin:22px 0 0}
+</style></head>
+<body><div class="wrap">
+<div class="kicker"><a href="../">Exhibitrail</a> · case guide · reading guide</div>
+<h1>Answering the AI security questionnaire</h1>
+<p>Ten questions appear in almost every enterprise review of an AI vendor. Most vendors answer them with
+adjectives. This is what a buyer actually accepts, and what to attach.</p>
+<p>The rule underneath all ten: <strong>an answer is only an answer if you can hand over the artefact.</strong> If you
+cannot, say so — a written "we have not implemented this" is survivable; a confident sentence that
+collapses under one follow-up is not.</p>
+<hr />
+<h2>1. "What can the agent do without a human?"</h2>
+<p><strong>Weak:</strong> "It only does what it's told."
+<strong>Survives:</strong> an enumerated list of write actions, with the gate named per action, and the credential
+scope the agent holds.</p>
+<p>Attach: the list itself, the token scope, and one screenshot of the approval step. If a single tool
+holds a broad credential, say so and state what you are doing about it — a reviewer who finds it
+later costs you more than the admission does.</p>
+<h2>2. "Where does conversation data live, and for how long?"</h2>
+<p><strong>Weak:</strong> "We take privacy seriously."
+<strong>Survives:</strong> a table — store, what lands in it, retention period, who owns deletion. Transcript,
+vector index, application logs, trace/observability vendor, and the model provider's own retention
+setting.</p>
+<p>Attach: the table, and the settings page. The store nobody owns is the one that fails review.</p>
+<h2>3. "How is memory separated between customers?"</h2>
+<p><strong>Weak:</strong> "Each customer has their own session."
+<strong>Survives:</strong> the tenant key is derived server-side and is not a value the client can choose; read
+paths authorise the caller before resolving the key.</p>
+<p>Attach: the function that mints the session id, and the resolve path. If your memory is keyed by a
+client-supplied id — which is the default in several popular frameworks — that is a findable gap, and
+the reviewer will find it.</p>
+<h2>4. "Which third parties see our data?"</h2>
+<p><strong>Weak:</strong> a category list ("model providers, infrastructure").
+<strong>Survives:</strong> names, purpose, region, and whether a DPA exists for each — including the observability
+and eval vendors, which are usually missing from the page.</p>
+<p>Attach: the sub-processor list, current as of a date.</p>
+<h2>5. "How do you stop indirect prompt injection?"</h2>
+<p><strong>Weak:</strong> "We have guardrails." or "We use a classifier."
+<strong>Survives:</strong> content is delimited and labelled as data at the prompt layer; tool output carries
+provenance into the message stream; and the guardrail <strong>fails closed</strong> — if the classifier errors,
+the request is denied, not allowed.</p>
+<p>Attach: the prompt template boundary, the message type, and the guardrail's error path. Fail-open is
+the default in a surprising amount of shipped code, and it is the first thing a reviewer tests.</p>
+<h2>6. "What happens when your model provider changes the model?"</h2>
+<p><strong>Weak:</strong> "We use a leading model."
+<strong>Survives:</strong> the model identifier is pinned; prompts are versioned artefacts; and there is a dated
+re-test after each pinned upgrade.</p>
+<p>Attach: the pinned identifier, the prompt hash per deployment, and the date of the last regression run.</p>
+<h2>7. "Who can read transcripts?"</h2>
+<p><strong>Weak:</strong> "Only authorised staff."
+<strong>Survives:</strong> the role that can read them, whether that access is logged, and whether support can read
+without a customer-approved break-glass step.</p>
+<p>Attach: the role definition and one audit log line showing a read.</p>
+<h2>8. "How do you delete data, and how fast?"</h2>
+<p><strong>Weak:</strong> "On request."
+<strong>Survives:</strong> a delete path that has been run at least once, propagation to vectors and summaries, a
+receipt with a timestamp, and the honest caveat about backups.</p>
+<p>Attach: the deletion receipt from a test tenant.</p>
+<h2>9. "Do you have SOC 2 / ISO 27001?"</h2>
+<p><strong>Weak:</strong> "We're working towards it." (or worse, implying you have it)
+<strong>Survives:</strong> the report type, the audit window, and — if none — what you have instead, stated plainly.</p>
+<p>Attach: the report, or a one-page description of controls with owners. <strong>Never</strong> say you have a report
+you do not have. This question is asked precisely because vendors lie here.</p>
+<h2>10. "What did your last penetration test cover?"</h2>
+<p><strong>Weak:</strong> "We do regular testing."
+<strong>Survives:</strong> the scope in one sentence — which surfaces, which accounts, which window — and what was
+out of scope, on purpose.</p>
+<p>Attach: the scope page, not the report. A reviewer wants to know the boundary, because the boundary is
+where their own system differs from yours.</p>
+<hr />
+<h2>Why these ten</h2>
+<p>They are not compliance questions. Each one asks the same underlying thing: <strong>is there a control, or
+only a sentence?</strong> A vendor who can answer eight of ten with an artefact is in better shape than one
+who answers ten with prose, because the reviewer's next move is to ask for the artefact anyway.</p>
+<p>If you want to know which ones you can actually answer today, tick them against
+<a href="../tests/24-tests.md">the 24 tests</a> — every one of these ten maps onto a test in one of the six classes.</p>
+<hr />
+<p><em>Written by Exhibitrail — AI security assessment. Public assessments, the 24 tests, and the pipeline
+that produces a worklist are all in this repository. Contact: contentforge.press@outlook.com — writing
+only, no calls at any stage.</em></p>
+<div class="seal">Evidence, not adjectives</div>
+<footer>Source review of public code, performed without access to any deployed system.
+No warranty, no attestation, no statement on behalf of any maintainer. ·
+<a href="../../">repository</a> · <a href="../">all cases</a></footer>
+</div></body></html>

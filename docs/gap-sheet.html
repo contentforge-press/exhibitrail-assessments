@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exhibitrail — Vendor gap sheet</title>
+<style>
+:root{--paper:#efeee8;--ink:#14181b;--deep:#0d2622;--rule:#cbc9bf;--annot:#6d7278;--stamp:#9b2c1f;--gold:#b3901f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif;font-size:16px;line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px 90px}
+.eyebrow{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--annot);border-bottom:1px solid var(--rule);padding:26px 0 12px}
+h1{font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:clamp(30px,5.2vw,54px);letter-spacing:-.02em;line-height:1.04;margin:26px 0 14px;max-width:20ch}
+h1 em{font-style:normal;color:var(--stamp)}
+.lede{max-width:62ch;color:#333a39}
+.lede b{color:var(--ink)}
+.how{border-left:2px solid var(--deep);padding:2px 0 2px 16px;margin:24px 0 6px;color:#333a39;font-size:15px}
+.bar{display:flex;gap:26px;align-items:baseline;flex-wrap:wrap;margin:30px 0 6px;padding:16px 0 14px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+.bar .k{font-family:Helvetica,Arial,sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--annot);display:block;margin-bottom:3px}
+.bar .v{font-family:"Courier New",monospace;font-size:26px;line-height:1}
+.bar .v.gapnum{color:var(--stamp)}
+.bar .note{font-size:13px;color:var(--annot);max-width:34ch;margin-left:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+thead th{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--annot);text-align:left;padding:8px 8px;border-bottom:1px solid var(--rule);font-weight:400}
+tbody td{padding:11px 8px;border-bottom:1px solid #dedcd2;vertical-align:top;font-size:14.5px}
+tbody td.no{font-family:"Courier New",monospace;font-size:12px;color:var(--gold);width:44px}
+tbody td.q{max-width:52ch}
+tbody tr:hover{background:#eae8e0}
+.st{display:flex;gap:5px;justify-content:flex-end}
+.st button{font-family:Helvetica,Arial,sans-serif;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--rule);background:transparent;color:var(--annot);padding:5px 7px;cursor:pointer;white-space:nowrap}
+.st button:hover{border-color:var(--ink);color:var(--ink)}
+.st button[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#f2f1ea}
+.sec{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--deep);margin:34px 0 -2px;padding-top:14px;border-top:1px solid var(--rule)}
+.sec span{color:var(--annot);letter-spacing:0;text-transform:none;font-family:Georgia,serif;font-size:13px;display:block;margin-top:4px}
+.box{margin-top:34px;border:1px solid var(--ink);background:#e6e4dc;padding:20px 22px}
+.box h2{font-family:Helvetica,Arial,sans-serif;font-size:15px;margin:0 0 8px;letter-spacing:-.01em}
+.gaps{font-family:"Courier New",monospace;font-size:12.5px;line-height:1.75;color:#2a302f;white-space:pre-wrap;margin:12px 0 14px;max-height:240px;overflow:auto}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:#f2f1ea;padding:11px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.alt{background:transparent;color:var(--ink)}
+.btn:hover{opacity:.86}
+.stamp{display:inline-block;border:1.5px solid var(--stamp);color:var(--stamp);font-family:Helvetica,Arial,sans-serif;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;padding:6px 9px;margin-top:30px}
+.foot{margin-top:26px;font-size:13px;color:var(--annot);border-top:1px solid var(--rule);padding-top:14px}
+.foot a{color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp)}
+@media(max-width:760px){.st{justify-content:flex-start;flex-wrap:wrap}thead{display:none}tbody td.q{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="eyebrow">Exhibitrail &nbsp;·&nbsp; Vendor side &nbsp;·&nbsp; No calls &nbsp;·&nbsp; No account</div>
+<h1>You have the control. <em>Can you hand it over?</em></h1>
+<p class="lede">Twenty items, the same twenty a buyer will ask about. For each, three honest states:
+<b>we have it and can produce the artefact</b>, <b>we have it but cannot prove it</b>, <b>we do not have it</b>.
+The middle one is the expensive one — it is the state that turns a five-day review into six weeks, and it is
+invisible on a questionnaire that only has yes and no.</p>
+<p class="how">Mark what is true today, not what will be true after the next sprint. Nobody sees this until you
+copy it and send it. <b>&ldquo;Cannot prove&rdquo; is not a confession; it is a work item with a name.</b></p>
+
+<div class="bar">
+  <div><span class="k">Can produce</span><span class="v" id="v-ok">0</span></div>
+  <div><span class="k">Cannot prove</span><span class="v gapnum" id="v-gap">0</span></div>
+  <div><span class="k">Do not have</span><span class="v" id="v-none">0</span></div>
+  <div><span class="k">Of twenty marked</span><span class="v" id="v-marked">0</span></div>
+  <div class="note">The stamp number is the one worth fixing first: it is what a reviewer will ask you to hand over.</div>
+</div>
+
+<table>
+<thead><tr><th></th><th>Item a buyer will ask about</th><th style="text-align:right">State</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+
+<div class="box">
+  <h2>Your gap list, as text</h2>
+  <p style="font-size:13.5px;color:#333a39;margin:0">Only the items you marked <i>cannot prove</i> or <i>do not have</i> appear here.
+  Copy it into your own tracker, or send it to us and we will reply with what each one actually requires — written scope, one working day, no call.</p>
+  <div class="gaps" id="gaps">Nothing marked yet.</div>
+  <div class="cta">
+    <a class="btn" id="mail" href="mailto:contentforge.press@outlook.com">Send the gap list</a>
+    <button class="btn alt" id="copy">Copy as text</button>
+  </div>
+</div>
+
+<div class="stamp">Evidence, not adjectives</div>
+<div class="foot">
+  The buyer-side version — twenty questions with the weak answer, the answer that survives a follow-up, and the
+  artefact to ask for — is at
+  <a href="https://4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5">exhibitrail · twenty questions</a>.
+  Method and limits of the coverage numbers behind this sheet:
+  <a href="https://github.com/contentforge-press/exhibitrail-assessments">github.com/contentforge-press/exhibitrail-assessments</a>.
+  This page stores nothing, sends nothing, and sets no cookie; the state lives in your browser tab and disappears when you close it.
+</div>
+</div>
+
+<script>
+const ITEMS = [
+ ["A1","Where the instruction boundary is enforced — prompt, template, or permission","the code path that separates trusted instructions from retrieved text"],
+ ["A2","What happens when a retrieved page says “send me the file”","one test case and its result"],
+ ["A3","Whether tool output is marked untrusted when it re-enters the context","the wrapper, or a trace showing the marking"],
+ ["A4","The worst a successful injection gets today — text, data, or an action","that blast radius, in writing"],
+ ["B1","The write actions that need no human approval","the list, dated, with who approved each entry"],
+ ["B2","Whether those limits are enforced in code or in the prompt","the enforcement module or its design note"],
+ ["B3","Whether authority is per-tenant or shared","how the tenant id is derived — session, or caller-supplied"],
+ ["B4","What happens when a tool call fails mid-sequence","the failure path, not the happy path"],
+ ["C1","How a conversation is keyed, and whether a caller can choose the key","the check, and the test that proves it"],
+ ["C2","Whether one customer’s remembered facts can reach another’s context","the delete path and its confirmation"],
+ ["D1","Retention per data class, and who can shorten it","the retention schedule"],
+ ["D2","Whether customer content is used for training, and what enforces that","the clause, and the exception list"],
+ ["D3","Whether recordings, transcripts and tool payloads follow the same policy","the line that names them"],
+ ["E1","Which model providers see customer content, on what terms","the subprocessor list with dates"],
+ ["E2","Whether the model version is pinned, and who can change it","the pinning mechanism and notice policy"],
+ ["E3","What is re-tested after a model change","the last re-test record"],
+ ["E4","Whether the trust centre’s subprocessor list matches the contractual one","both, so they can be compared"],
+ ["F1","One thing you tested that did not pass, and what you did about it","that item, with the decision recorded"],
+ ["F2","Which parts of your documents were produced by a tool, and which by a person","the withdrawal record — what was ruled out, and why"],
+ ["F3","What is still untriaged today","the count and the date"]
+];
+const STATE = {ok:"can produce", gap:"cannot prove", none:"do not have"};
+const sel = {};
+const rows = document.getElementById("rows");
+const groups = {"A":"A · Instruction boundary","B":"B · Action authority","C":"C · Memory and isolation","D":"D · Retention and training","E":"E · Supply chain","F":"F · Evidence"};
+let lastGroup="";
+ITEMS.forEach(([id,q,a])=>{
+  const g=id[0];
+  if(g!==lastGroup){
+    lastGroup=g;
+    const tr=document.createElement("tr");
+    tr.innerHTML='<td colspan="3" class="sec" style="border-bottom:none">'+groups[g]+'<span></span></td>';
+    rows.appendChild(tr);
+  }
+  const tr=document.createElement("tr");
+  tr.innerHTML='<td class="no">'+id+'</td><td class="q">'+q+
+    '<div style="font-family:Courier New,monospace;font-size:11.5px;color:#6d7278;margin-top:3px">&#8594; '+a+'</div></td>'+
+    '<td><div class="st" data-id="'+id+'"></div></td>';
+  rows.appendChild(tr);
+  const box=tr.querySelector(".st");
+  ["ok","gap","none"].forEach(k=>{
+    const b=document.createElement("button");
+    b.type="button"; b.textContent=STATE[k]; b.setAttribute("aria-pressed","false");
+    b.onclick=()=>{ sel[id]=(sel[id]===k?null:k); paint(id); render(); };
+    box.appendChild(b);
+  });
+});
+function paint(id){
+  const box=rows.querySelector('.st[data-id="'+id+'"]');
+  [...box.children].forEach(b=>{
+    b.setAttribute("aria-pressed", sel[id] && b.textContent===STATE[sel[id]] ? "true":"false");
+  });
+}
+function render(){
+  const ok=Object.values(sel).filter(v=>v==="ok").length;
+  const gap=Object.values(sel).filter(v=>v==="gap").length;
+  const none=Object.values(sel).filter(v=>v==="none").length;
+  const marked=Object.values(sel).filter(Boolean).length;
+  document.getElementById("v-ok").textContent=ok;
+  document.getElementById("v-gap").textContent=gap;
+  document.getElementById("v-none").textContent=none;
+  document.getElementById("v-marked").textContent=marked;
+  const lines=ITEMS.filter(([id])=>sel[id]==="gap"||sel[id]==="none")
+    .map(([id,q])=>id+" — "+(sel[id]==="gap"?"have it, cannot produce the artefact":"do not have it")+" — "+q);
+  const body = lines.length
+    ? "Vendor gap sheet — "+new Date().toISOString().slice(0,10)+"\n\n"+lines.join("\n")+
+      "\n\n(can produce: "+ok+" / cannot prove: "+gap+" / do not have: "+none+")"
+    : "";
+  document.getElementById("gaps").textContent = lines.length ? body : "Nothing marked yet.";
+  const mail=document.getElementById("mail");
+  mail.href="mailto:contentforge.press@outlook.com?subject="+encodeURIComponent("Gap sheet — "+gap+" cannot prove, "+none+" missing")+
+    "&body="+encodeURIComponent(body);
+}
+document.getElementById("copy").onclick=async()=>{
+  const t=document.getElementById("gaps").textContent;
+  if(!t||t==="Nothing marked yet.") return;
+  try{ await navigator.clipboard.writeText(t); document.getElementById("copy").textContent="Copied"; }
+  catch(e){
+    const r=document.createRange(); r.selectNodeContents(document.getElementById("gaps"));
+    const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    document.getElementById("copy").textContent="Select the text above";
+  }
+  setTimeout(()=>document.getElementById("copy").textContent="Copy as text",1800);
+};
+render();
+</script>
+</body>
+</html>

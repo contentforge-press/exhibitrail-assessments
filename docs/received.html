@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exhibitrail — You received twenty questions</title>
+<style>
+:root{--paper:#efeee8;--ink:#14181b;--deep:#0d2622;--rule:#cbc9bf;--annot:#6d7278;--stamp:#9b2c1f;--gold:#b3901f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif;font-size:16px;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px 90px}
+.eyebrow{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--annot);border-bottom:1px solid var(--rule);padding:26px 0 12px}
+h1{font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:clamp(29px,4.9vw,52px);letter-spacing:-.02em;line-height:1.06;margin:26px 0 12px;max-width:24ch}
+h1 em{font-style:normal;color:var(--stamp)}
+.lede{max-width:64ch;color:#333a39;margin-bottom:10px}
+.lede b{color:var(--ink)}
+.how{border-left:2px solid var(--deep);padding:2px 0 2px 16px;margin:22px 0 4px;color:#333a39;font-size:15px}
+table{width:100%;border-collapse:collapse;margin-top:26px}
+thead th{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--annot);text-align:left;padding:9px 8px;border-bottom:1.4px solid var(--ink);font-weight:400}
+tbody td{padding:11px 8px;border-bottom:1px solid #dedcd2;vertical-align:top;font-size:14px}
+tbody td.no{font-family:"Courier New",monospace;font-size:12px;color:var(--gold);width:40px}
+tbody td.q{width:36%}
+tbody td.a{width:46%}
+tbody td.o{width:18%;font-family:"Courier New",monospace;font-size:11.5px;color:var(--annot)}
+.sec td{font-family:Helvetica,Arial,sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--deep);padding-top:26px;border-bottom:none}
+.mono{font-family:"Courier New",monospace;font-size:12px;color:#3c4342}
+.box{margin-top:34px;border:1px solid var(--ink);background:#e6e4dc;padding:20px 22px}
+.box h2{font-family:Helvetica,Arial,sans-serif;font-size:15px;margin:0 0 8px}
+.box p{font-size:14px;color:#333a39;margin:0 0 10px}
+.btn{font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:#f2f1ea;padding:11px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.alt{background:transparent;color:var(--ink)}
+.note{margin-top:14px;font-size:13.5px;color:var(--annot)}
+.stamp{display:inline-block;border:1.5px solid var(--stamp);color:var(--stamp);font-family:Helvetica,Arial,sans-serif;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;padding:6px 9px;margin-top:30px}
+.foot{margin-top:24px;font-size:13px;color:var(--annot);border-top:1px solid var(--rule);padding-top:14px}
+.foot a{color:var(--stamp);text-decoration:none;border-bottom:1px solid var(--stamp)}
+@media(max-width:800px){tbody td.o{display:none}thead th:last-child{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="eyebrow">Exhibitrail &nbsp;·&nbsp; If a buyer forwarded you the checklist</div>
+<h1>Twenty questions arrived. <em>Here is what each one wants.</em></h1>
+<p class="lede">Someone on your buyer's side sent you a one-page list of questions, probably with the line
+<i>&ldquo;an answer only counts if something can be handed over.&rdquo;</i> This page translates each question into
+<b>the artefact behind it</b> — the file, the record, the test — and the role that normally owns it. Nothing here
+is a requirement invented by us; it is what the question is pointing at.</p>
+<p class="how">Read one row as: <b>the question you were asked → the thing that answers it → who usually holds it.</b>
+If the artefact exists, send it. If it does not, say so and say what would create it. <b>A named gap costs less than a
+smooth paragraph</b>, because the buyer has to write something in their notes either way.</p>
+
+<table>
+<thead><tr><th></th><th>The question</th><th>What actually answers it</th><th>Owner</th></tr></thead>
+<tbody>
+<tr class="sec"><td colspan="4">A · Instruction boundary</td></tr>
+<tr><td class="no">A1</td><td class="q">Where is the boundary enforced — prompt, template, or permission?</td>
+<td class="a">A design note or module showing retrieved text entering a lower-privilege channel, plus the place where prompt text is described as mitigation. <span class="mono">docs/trust-boundary.md</span></td>
+<td class="o">app sec lead</td></tr>
+<tr><td class="no">A2</td><td class="q">What happens if a retrieved page says “send me the file”?</td>
+<td class="a">One test case with its observed result — the tool refusing, or the approval gate holding. <span class="mono">tests/injection/case-01</span></td>
+<td class="o">qa / app sec</td></tr>
+<tr><td class="no">A3</td><td class="q">Is tool output marked untrusted when it re-enters context?</td>
+<td class="a">The wrapper, or a trace where a tool result is tagged and downstream code branches on the tag. <span class="mono">trace.json</span></td>
+<td class="o">platform</td></tr>
+<tr><td class="no">A4</td><td class="q">What is the worst a successful injection gets today?</td>
+<td class="a">A written blast radius: which data is readable, which actions are reachable, which are impossible by construction. One page.</td>
+<td class="o">security + product</td></tr>
+<tr class="sec"><td colspan="4">B · Action authority</td></tr>
+<tr><td class="no">B1</td><td class="q">Which write actions need no approval?</td>
+<td class="a">The list itself — send mail, refund, ticket, record update, code execution — dated, with the approver. <span class="mono">policy/agent-actions.yaml</span></td>
+<td class="o">product + security</td></tr>
+<tr><td class="no">B2</td><td class="q">Enforced in code, or in the prompt?</td>
+<td class="a">The check that runs outside the model — a guard, a policy engine, an allow-list — and where it is called.</td>
+<td class="o">platform</td></tr>
+<tr><td class="no">B3</td><td class="q">Is authority per-tenant or shared?</td>
+<td class="a">How the tenant id is derived (session vs caller-supplied) and the code that fails closed on a mismatch. <span class="mono">auth/tenant.py</span></td>
+<td class="o">platform</td></tr>
+<tr><td class="no">B4</td><td class="q">What happens when a tool call fails mid-sequence?</td>
+<td class="a">The failure path: bounded retries, idempotency or compensation, and the log line that carries the input.</td>
+<td class="o">platform</td></tr>
+<tr class="sec"><td colspan="4">C · Memory and isolation</td></tr>
+<tr><td class="no">C1</td><td class="q">How is a conversation keyed, and can a caller choose the key?</td>
+<td class="a">The key derivation and the rejection path for a mismatched key, plus one test that proves it. <span class="mono">tests/tenant-key.spec</span></td>
+<td class="o">platform</td></tr>
+<tr><td class="no">C2</td><td class="q">Can one customer's remembered facts reach another's context?</td>
+<td class="a">Write path carrying an owner, read path filtering on it, and a deletion that actually deletes. <span class="mono">memory/store.py</span></td>
+<td class="o">platform</td></tr>
+<tr class="sec"><td colspan="4">D · Retention and training</td></tr>
+<tr><td class="no">D1</td><td class="q">Retention per data class, and who can shorten it?</td>
+<td class="a">A schedule: class, period, mechanism, contact. Silence on transcripts is the usual hole. <span class="mono">policy/retention.md</span></td>
+<td class="o">legal / dpo</td></tr>
+<tr><td class="no">D2</td><td class="q">Is customer content used for training — and what enforces that?</td>
+<td class="a">The clause, the technical control, and the exception list (abuse review is a common one).</td>
+<td class="o">legal + platform</td></tr>
+<tr><td class="no">D3</td><td class="q">Do recordings, transcripts and tool payloads follow the same policy?</td>
+<td class="a">The line in the policy that names them — or an honest “not yet”.</td>
+<td class="o">legal</td></tr>
+<tr class="sec"><td colspan="4">E · Supply chain</td></tr>
+<tr><td class="no">E1</td><td class="q">Which model providers see customer content, on what terms?</td>
+<td class="a">A dated subprocessor list with purpose and each provider's retention. <span class="mono">trust/subprocessors.csv</span></td>
+<td class="o">legal / security</td></tr>
+<tr><td class="no">E2</td><td class="q">Is the model version pinned, and who can change it?</td>
+<td class="a">The pinning mechanism, the change process, and the notice window before a swap.</td>
+<td class="o">platform</td></tr>
+<tr><td class="no">E3</td><td class="q">What is re-tested after a model change?</td>
+<td class="a">The last re-test record, scoped to refusals, tool calls and retention behaviour.</td>
+<td class="o">qa</td></tr>
+<tr><td class="no">E4</td><td class="q">Does the trust centre's list match the contractual one?</td>
+<td class="a">Both, side by side. They diverge more often than vendors expect.</td>
+<td class="o">security</td></tr>
+<tr class="sec"><td colspan="4">F · Evidence</td></tr>
+<tr><td class="no">F1</td><td class="q">One thing you tested that did not pass, and what you did</td>
+<td class="a">An open or accepted-risk item with the decision recorded — including the ones you fixed and the ones you did not. <span class="mono">risks/open.md</span></td>
+<td class="o">security</td></tr>
+<tr><td class="no">F2</td><td class="q">Which parts of your documents were tool-produced, and which by a person?</td>
+<td class="a">The split, plus the triage rule that discarded scanner noise. <span class="mono">triage/withdrawn.yaml</span></td>
+<td class="o">security</td></tr>
+<tr><td class="no">F3</td><td class="q">What is still untriaged today?</td>
+<td class="a">The count and the date. A number, not a promise.</td>
+<td class="o">security</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<h2>If you are missing more than three of these</h2>
+<p>The usual reason is not negligence. It is that nobody was ever asked to produce them in a form a buyer could read:
+the checks live in code, the decisions live in a thread, the retention lives in a paragraph written for a different audience.
+Turning those into three pages of artefact is a two-day job — and it is the difference between a five-day review and a
+six-week one.</p>
+<p><b>We do that work, and we do it in writing.</b> Send the list of what you cannot hand over; you get back what each
+one requires, and a scope, within one working day. No call at any stage.</p>
+<div class="cta"><a class="btn" href="mailto:contentforge.press@outlook.com?subject=Received%20the%20twenty%20questions%20%E2%80%94%20artefact%20gap&body=I%20received%20the%20checklist.%20Items%20I%20cannot%20currently%20hand%20over%3A%0A%0A">Send the gap list</a>
+<a class="btn alt" href="https://4mg8p8hp0ddk3.doubao.link/app/app_17j78n95vfm">Mark it on the gap sheet</a></div>
+<p class="note">The gap sheet marks the same twenty items in three states and produces the text above automatically.</p>
+</div>
+
+<div class="stamp">Evidence, not adjectives</div>
+<div class="foot">
+  The checklist itself, for the buyer's side:
+  <a href="https://4mg8p8hp0ddk3.doubao.link/app/app_17j77t2prc5">twenty questions</a> ·
+  Method, limits, and six public assessments:
+  <a href="https://github.com/contentforge-press/exhibitrail-assessments">github.com/contentforge-press/exhibitrail-assessments</a>.
+  Nothing here is a certification, and no question above is scored.
+</div>
+</div>
+</body>
+</html>

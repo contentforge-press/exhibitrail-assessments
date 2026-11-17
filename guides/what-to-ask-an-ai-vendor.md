@@ -154,8 +154,6 @@ Ask for: the count and the date.
 3. Two or more "silence" in a deal that matters is a finding about the process, not the product.
 4. Where an artefact exists, read the *withdrawal* part first: what the vendor decided was **not**
    a problem tells you more about their judgement than any list of what they found.
-3. Where an artefact exists, read the *withdrawal* part first: what the vendor decided was **not**
-   a problem tells you more about their judgement than any list of what they found.
 
 ## Two questions that cut through most of the above
 
